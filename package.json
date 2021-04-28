@@ -48,7 +48,7 @@
     "start": "craco --max_old_space_size=4096 start",
     "build": "craco --max_old_space_size=4096 build",
     "test": "react-scripts test",
-    "deploy": "yarn run build && aws s3 sync ./build s3://transparency.flashbots.net",
+    "deploy": "yarn run build && aws s3 sync ./build s3://dashboard.flashbots.net",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
