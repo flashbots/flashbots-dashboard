@@ -1,9 +1,9 @@
 {
-  "name": "mev-transparency",
+  "name": "flashbots-dashboard",
   "version": "1.0.0",
   "main": "index.js",
   "author": "RyRy79261 <ryanjnoble@gmail.com>",
-  "repository": "https://github.com/flashbots/mev-transparency.git",
+  "repository": "https://github.com/flashbots/flashbots-dashboard.git",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.12.3",
