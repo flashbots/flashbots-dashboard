@@ -1,4 +1,4 @@
-# MEV Transparency
+# Flashbots Dashboard
 
 ## Prerequisites
 
