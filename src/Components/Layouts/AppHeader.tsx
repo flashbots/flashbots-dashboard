@@ -26,12 +26,12 @@ const useStyles = makeStyles(
         flexDirection: "row",
         alignItems: "center",
         height: `${constants.headerHeight}px`,
-        padding: `0 ${constants.generalUnit * 3}px`, 
+        padding: `0 ${constants.generalUnit * 3}px`,
         backgroundColor: palette.additional.black as string,
         zIndex: zIndex?.blocker,
         [breakpoints.down("md")]: {
           justifyContent: "flex-start",
-          padding: `0 ${constants.generalUnit * 2}px`, 
+          padding: `0 ${constants.generalUnit * 2}px`,
         },
         [breakpoints.up("md")]: {
           justifyContent: "space-around",
@@ -68,7 +68,7 @@ const useStyles = makeStyles(
           display: "inline-block",
           verticalAlign: "center"
         },
-        
+
         "& sub": {
           fontSize: 24,
         },
@@ -76,7 +76,7 @@ const useStyles = makeStyles(
           color: palette.additional.white as string,
           textDecoration: "none",
           "&:first-child": {
-            // ICON 
+            // ICON
             marginRight: constants.generalUnit / 2
           }
         }
@@ -125,9 +125,9 @@ const useStyles = makeStyles(
         alignItems: "center",
         cursor: "pointer",
         "& svg": {
-          width: 20, 
+          width: 20,
           height: 20,
-          marginRight: constants.generalUnit 
+          marginRight: constants.generalUnit
         },
       }
     })
@@ -153,7 +153,7 @@ const AppHeader = () => {
          </a>
          <Link to={ROUTE_LINKS.Dashboard("network")}>
           <Typography variant="h1">
-            MEV-Transparency<sub>&nbsp;v0</sub>
+            Flashbots Dashboard<sub>&nbsp;v0</sub>
           </Typography>
          </Link>
       </div>
