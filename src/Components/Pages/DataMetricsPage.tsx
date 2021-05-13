@@ -70,15 +70,15 @@ const DataMetricsPage = () => {
           Democratizing access to MEV revenue
         </li>
         <li>
-          Distributing the MEV revenue in a way the benefits the community
+          Enabling redistribution of MEV revenue in a way that benefits the community
         </li>
       </ul>
     </Typography>
     <Typography component="p">
-      Early this year Flashbots released our a proof of concept communication channel between miners and users for transparent and efficient MEV extraction. Users of Flashbots, which we call searchers, can send bundles of transactions directly to the miner and bid for inclusion in a block. This is done with <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/mev-geth">MEV-Geth</a>, a slightly modified fork of the geth client, and <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/mev-relay-js">MEV-Relay</a>, a transaction bundle relayer. 
+      On Jan 6, 2021 Flashbots released Flashbots Alpha v0.1, a proof of concept communication channel between miners and users that enables transparent and efficient MEV extraction. User who send transactions on Flashbots, which we call searchers, can send bundles of transactions directly to miners (specifically mining pools running MEV-Geth which are whitelisted in the Flashbots MEV-Relay miner registry and are receiving Flashbots bundles) and bid for inclusion in a block. This is done with <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/mev-geth">MEV-Geth</a>, a slightly modified fork of the Geth client, and <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/mev-relay-js">MEV-Relay</a>, a transaction bundle relayer. 
     </Typography>
     <Typography component="p">
-      The Flashbots Dashboard is a collection of real time metrics on the Flashbots network going back to its inception in December. In this document we cover several key definitions used for these metrics, explain how the data used in the dashboard is collected, and offer some caveats for our metrics.
+      The Flashbots Dashboard is a collection of real time metrics on the Flashbots network that goes back to the first pre-release test bundle mined on-chain on December 29, 2021. In this document we cover several key definitions used for these metrics, explain how the data used in the dashboard is collected, and offer some caveats for our metrics.
     </Typography>
     <Typography component="p">
       Flashbots’ dashboard only reflects activity on the Flashbots network. If you are interested in metrics related to the broader Ethereum network and MEV, please refer to <a rel="noopener noreferrer" target="_blank" href="https://explore.flashbots.net/">MEV-Explore</a>.
@@ -89,19 +89,19 @@ const DataMetricsPage = () => {
       </b>
       <ul>
         <li>
-          For mined bundles data coverage starts with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11550019">block 11550019</a> (December 29th, 2020) , which is the first block with a Flashbots bundle included on it
+          This is release v0 of the Flashbots Dashboard. Our goal is to provide transparency and insights on the Flashbots network for the users of Flashbots and the general community.
         </li>
         <li>
-          For relay data coverage begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11833997">block 11833997</a> (Feb 11th, 2021), which is when we updated the relay to capture more metrics
+          Flashbots Dashboard displays a range of summary statistics on the usage of Flashbots Network, and metrics pertaining to the two types of direct users of Flashbots network: searchers and miners. 
         </li>
         <li>
-          A range of metrics important to searchers, miners, and the overall Flashbots network are displayed
+          For profitability metrics we only quantify miner profits today. We are currently developing methods to quantify searcher profits accurately.
         </li>
         <li>
-          Only metrics related to Flashbots are covered. These are not reflective of the overall Ethereum network.
+          Flashbots Dashboard only provides metrics related to activities on Flashbots Network. For quantification of MEV extraction activities on the broader Ethereum network, please refer to MEV Explore v0 Dashboard: <a rel="noopener noreferrer" target="_blank" href="https://explore.flashbots.net/">explore.flashbots.net</a>.
         </li>
         <li>
-          We only quantify the profit that miners realize today. We are currently developing methods to quantify searcher profits accurately.
+          Flashbots Dashboard has two sources of data: mined bundles data covering Flashbots bundles that landed on-chain (coverage begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11550019">block 11550019</a> mined on December 29th, 2020, which is the first canonical block with a Flashbots bundle included), and relay data covering all bundles searchers have sent to MEV-Relay (coverage begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11833997">block 11833997</a> mined on Feb 11th, 2021, which is we updated MEV-Relay was updated to capture more metrics).
         </li>
       </ul>    
     </Typography>
@@ -112,16 +112,16 @@ const DataMetricsPage = () => {
       </b>
       <ul>
         <li>
-          Maximum Extractable Value (MEV): formerly named Miner Extractable Value, is a measure of the total value that can be extracted permissionlessly (i.e. without any special rights) from transaction ordering.
+          <b>Maximum Extractable Value (MEV):</b> formerly named Miner Extractable Value, is a measure of the total value that can be extracted permissionlessly (i.e. without any special rights) from transaction ordering.
         </li>
         <li>
-          Realized Extractable Value (REV): a subset of MEV which is the actual value extracted. Note that miners and searchers will both realize some amount of MEV. Furthermore, there are costs to extracting MEV that must be taken into account (e.g. gas costs). A framework expanding on REV can be found <a rel="noopener noreferrer" target="_blank" href="https://hackmd.io/IGlkjRDrTmSJf_MM_f2Bcg">here</a>.
+          <b>Realized Extractable Value (REV):</b> a subset of MEV which is the actual value extracted. Note that miners and searchers will both realize some amount of MEV. Furthermore, there are costs to extracting MEV that must be taken into account (e.g. gas costs). A framework expanding on REV can be found <a rel="noopener noreferrer" target="_blank" href="https://hackmd.io/IGlkjRDrTmSJf_MM_f2Bcg">here</a>.
         </li>
         <li>
-          Bundles: One or more transactions sent by a Flashbots searcher that are grouped together and executed in the order they are provided. A bundle can contain pending transactions from the public mempool. Bundles are sent to Flashbots’ relay and then forwarded to miners if they contain no errors. An example bundle can be found <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/ethers-provider-flashbots-bundle#example">here</a>.
+          <b>Bundles:</b> Flashbots Core introduces a new eth_sendBundle RPC which standardizes format of messages in the communication channel between searchers and miners. This message is called a "Flashbots Bundle,” and bundles are one or more transactions sent by a Flashbots searcher that are bundled together and executed in the order they are specified. A bundle can contain pending transactions from the public mempool. Bundles are sent to Flashbots’ relay and then forwarded to miners if they contain no errors. An example bundle can be found <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/ethers-provider-flashbots-bundle#example">here</a>.
         </li>
         <li>
-          Relay: A gateway that Flashbots operates that sits between searchers and miners. The relay simulates bundles before forwarding them to miners if they contain no errors. Today the relay is necessary to prevent spam attacks against miners, but Flashbots is actively doing research on how to remove the need for a trusted relay. More information can be found <a rel="noopener noreferrer" target="_blank"  href="https://github.com/flashbots/mev-relay-js">here</a>.
+          <b>Relay:</b> A gateway that Flashbots operates that sits between searchers and miners. The relay simulates bundles before forwarding them to miners if they contain no errors. Today the relay is necessary to prevent spam attacks against miners, but Flashbots is actively doing research on how to remove the need for a trusted relay. More information can be found <a rel="noopener noreferrer" target="_blank"  href="https://github.com/flashbots/mev-relay-js">here</a>.
         </li>
       </ul>
     </Typography>
@@ -139,7 +139,7 @@ const DataMetricsPage = () => {
           For bundles with multiple transactions we take the contract of the last transaction in a bundle to be the contract. Typically the last transaction in a bundle contains payment to the miner after the user’s trade has been executed and thus is the most likely candidate for which EOA originated the bundle, although this may not always be the case.
         </li>
         <li>
-          <b>Searchers in the relay:</b> Searchers that we can identify by their unique signing key used to sign bundles sent to the relay. Each unique signing key counts towards a unique searcher. This may provide an overestimate of the number of unique searchers there are given how easily signing keys can be generated.
+          <b>Searchers in the relay:</b> Searchers in the relay are searchers that we identify with the unique signing key that they used to sign bundles sent to the relay. Each unique signing key counts towards a unique searcher. This may provide an overestimate of the number of unique searchers there are given how easily signing keys can be generated. More information on the signing key can be found <a rel="noopener noreferrer" target="_blank" href="https://github.com/flashbots/mev-relay-js">here</a>.
         </li>
       </ul>
     </Typography>
@@ -149,7 +149,10 @@ const DataMetricsPage = () => {
       </b>
       <ul>
         <li>
-          Miner profit: Miner profit is measured by Miner Realized Extracted Value, which is a subset of maximal extractable value (“MEV”). Specifically it is the portion of MEV that the miner is paid minus  the opportunity cost of extracting that MEV. The formula for this is (miner_payment - tail_gas_price * bundle_gas_consumed). In other words, it is the miner’s payment for including a bundle minus the gas cost of transactions they displaced. Flashbots is designed such that miners should only ever include a bundle in a block if it is profitable for them to do so.
+          <b>Hashrate adoption:</b> Hashrate adoption represents the Ethereum hashrate accounted for by mining pools running MEV-Geth and receiving Flashbots transaction bundles.
+        </li>
+        <li>
+          <b>Miner profit:</b> Miner profit is measured by Miner Realized Extracted Value, which is a subset of maximal extractable value (“MEV”). Specifically it is the portion of MEV that the miner is paid minus  the opportunity cost of extracting that MEV. The formula for this is (miner_payment - tail_gas_price * bundle_gas_consumed). In other words, it is the miner’s payment for including a bundle minus the gas cost of transactions they displaced. Flashbots is designed such that miners should only ever include a bundle in a block if it is profitable for them to do so.
           <br/><br/>
           Where USD values are shown that takes into account the USD value of ETH at the time of a transaction by looking at the average price of ETH on ETH/USDC, ETH/USDT, and ETH/DAI markets on Uniswap v2.
         </li>
@@ -172,10 +175,10 @@ const DataMetricsPage = () => {
           </b>
           <ul>
             <li>
-              Our <b>mined bundles</b> database begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11550019">block 11550019</a> which occurred on December 29th.
+              Our <b>mined bundles</b> bundles database begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11550019">block 11550019</a> which occurred on December 29th during our pre-alpha. Flashbots Alpha was released on January 6th, and prior to that the only bundles mined were test bundles.
             </li>
             <li>
-              Our <b>relay bundles</b> database begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11833997">block 11833997</a> which occurred on February 11th
+              Our <b>relay bundles</b> database begins with <a rel="noopener noreferrer" target="_blank" href="https://etherscan.io/block/11833997">block 11833997</a> which occurred on February 11th. We started to collect more data on bundles after that block.
             </li>
           </ul>
         </li>
@@ -206,16 +209,16 @@ const DataMetricsPage = () => {
       </b>
       <ul>
         <li>
-          <b>Only data related to Flashbots is covered:</b> these statistics shouldn't be taken as representative of the Ethereum network overall
+          <b>Only data related to Flashbots is covered:</b> these statistics shouldn't be taken as representative of the Ethereum network overall.  
         </li>
         <li>
           <b>Flashbots hashrate adoption is not the hashrate running MEV-geth:</b> it is difficult to tell how much hashrate miners use to mine Flashbots blocks at any given time. A reasonable estimate of this is the % of blocks in the last 10,000 blocks that have Flashbots bundles included.
         </li>
         <li>
-          <b>We have little visibility into how profitable searcher’s transactions are:</b> determining how much profit searchers made in their bundles with little to no errors in a scalable way is a difficult problem.. We are working on tuning MEV-Inspect to cover most bundles, but currently have no visibility into searcher’s profitability.
+          <b>We have little visibility into how profitable searcher’s transactions are:</b> determining how much profit searchers made in their bundles with little to no errors in a scalable way is a difficult problem. We are working on tuning MEV-Inspect to cover most bundles, but currently have little visibility into searcher’s profitability.
         </li>
         <li>
-          <b>Searchers in the relay is a rough estimate of the number of unique users:</b> searchers in the relay uses the number of distinct signing keys we see to estimate the number of unique users. Given how easy it is to create a new unique signing key, and the incentives to do so, searchers may use several signing keys. This would mean we are counting some searchers multiple times and that would bias the number of unique users upwards.
+          <b>Searchers in the relay is a rough estimate of the number of unique users:</b> <i>searchers in the relay</i> uses the number of distinct signing keys we see to estimate the number of unique users. Given how easy it is to create a new unique signing key, and the incentives to do so, searchers may use several signing keys. This would mean we are counting some searchers multiple times and that would bias the number of unique users upwards.
           <br/><br/>
           On the other hand there may be searchers in the relay who are submitting bundles but have not yet landed them on-chain. As a result, there would be no EOA or contract for us to count these searchers with. Searchers in the relay thus may reflect some amount of searchers that are using Flashbots but have yet to land bundles. 
         </li>
@@ -244,7 +247,7 @@ const DataMetricsPage = () => {
           <b>Searcher strategy metrics:</b> similarly, we do not detect what kinds of strategies searchers are pursuing, e.g. is a given bundle a liquidation or an arbitrage. Our next step after initial searcher profit analysis is to develop heuristics to identify searcher strategies in bundles.
         </li>
         <li>
-          <b>Flashbots network impact metrics:</b> we plan to research and develop metrics to help better understand the effect that Flashbots has on the overall Ethereum network. 
+           <b>Flashbots network impact metrics:</b> we plan to research and develop metrics to help better understand the effect that Flashbots has on the overall Ethereum network. 
         </li>
         <li>
           <b>Relay bundle submission latency metrics:</b> to provide searchers more real time insights into the health of the Flashbots relay we plan to develop metrics that help searchers better understand aggregate latency between bundle submission, simulation, and forwarding.
